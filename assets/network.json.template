@@ -2,7 +2,8 @@
   "version": "1.0",
   "updated": "REPLACE-ME",
   "note": "唯一网络参数配置。改 params 后执行 sync_runtime.py --apply，自动重建页面 WB_NET 常量块并同步镜像。",
-  "dynamic_note": "服务端 GET /net 运行时返回真实 lan_url / host_url / portal_url；下列值是静态站、file:// 与断网时的兜底默认值。IP 漂移优先改这里。",
+  "dynamic_note": "服务端 GET /net 运行时返回真实 lan_url / host_url / portal_url；下列值是静态站、file:// 与断网时的兜底默认值。IP 漂移优先改这里。换网向导另取 /net 的 ip / lan_url 与 /api 的 ip / ssid / rssi 判同网。",
+  "firmware_note": "固件默认无网页配网：SSID / 密码硬编码在 config.h，换 WiFi 须改文件重编译烧录。ap_ssid 必须与固件一致；救援 AP 信息页通常为 http://192.168.4.1/info（内嵌于 web_page.h，改页须重烧）。前端向导只做同网判定与指路，不承诺可配网。",
   "params": {
     "local_url": "http://127.0.0.1:8080/",
     "local_api": "http://127.0.0.1:8080/api?raw=1",
@@ -10,7 +11,7 @@
     "lan": "192.168.1.50:8080",
     "host": "your-mac.local:8080",
     "port_suffix": ":8080",
-    "ap_ssid": "ESP32-Direct",
+    "ap_ssid": "ESP32-Direct-REPLACE",
     "ap_url": "http://192.168.4.1/",
     "board_ip": "192.168.1.60",
     "board_port": 8080,

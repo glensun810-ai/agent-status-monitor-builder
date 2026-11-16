@@ -1,16 +1,17 @@
 {
   "version": "1.0",
   "updated": "REPLACE-ME",
-  "note": "唯一路径配置。真源=本文件夹；镜像=系统可读的运行时副本；注册点=系统级，无法移入项目目录。",
+  "note": "唯一路径配置。真源=本文件夹；镜像=系统可读的运行时副本；注册点=系统级，无法移入项目目录。运行时事件流水、审计与会话台账只在镜像/用户目录，不属于真源文件清单。",
   "truth_root": ".",
   "layout": {
     "01-核心界面": "唯一真源：index.html + sw.js + 服务端 + manifest + verify 脚本（整体不可拆）",
     "02-状态灯链路": "采集/哨兵/门户 py 源副本 + ui_contract.json（版本管理与灾备）",
-    "03-固件": "wb_light/ 自包含固件源码 + 编译/烧录规程",
-    "04-验证": "基线口径 + 专项脚本 + 真浏览器脚本",
+    "03-固件": "wb_light/ 自包含固件源码 + 编译/烧录规程；无网页配网，凭据在 config.h",
+    "04-验证": "基线口径 + 专项脚本 + 真浏览器脚本（专项 bl=False，不计入基线）",
     "05-运行配置": "launchd plist 只读存档",
     "06-文档": "交付报告与用户说明书",
-    "07-归档": "历史版本备份"
+    "07-归档": "历史版本备份",
+    "08-视频号": "成片、脚本与可复现生成器（素材类，复制代码层时不带出）"
   },
   "mirror": {
     "wblight": "~/.workbuddy/wblight",
@@ -28,6 +29,7 @@
     "hooks_symlink": "~/.workbuddy/hooks/ -> 运行时镜像",
     "global_config": "~/.workbuddy/wb_config.json",
     "lan_token": "~/.workbuddy/wblight/lan_token (0600)",
+    "event_log": "~/.workbuddy/wblight/board/.runtime/board_events.jsonl（运行时数据，不入真源清单）",
     "app_card": "REPLACE-ME（平台应用卡片，工作区根）",
     "online": "REPLACE-ME（公网静态连接向导，无后端）"
   },
@@ -38,8 +40,10 @@
     "truth_dir": "01-核心界面"
   },
   "hard_constraints": [
-    "运行时注册点在目录之外：plist、hooks 软链、令牌、应用卡片、线上站点、板上固件",
-    "固件必须烧录，目录内只放源码与规程",
+    "运行时注册点在目录之外：plist、hooks 软链、令牌、应用卡片、线上站点、事件流水、板上固件",
+    "固件必须烧录，目录内只放源码与规程；固件无网页配网，换 WiFi 改 config.h 重编译",
+    "体积护栏与 min_headroom 不放宽；压缩器默认 dry-run 且带断言字面量保护",
+    "INVENTORY.json 自动生成勿手改；README 现役真值表须手工同步，sync 不回写",
     "工作区根需在客户端手动切换"
   ]
 }
